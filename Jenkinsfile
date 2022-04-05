@@ -1,4 +1,8 @@
 pipeline {
+    environment {
+      imagename = "bhubr/hellonode"
+      dockerImage = ''
+    }
     agent { docker { image 'node:16.13.1-alpine' } }
     stages {
         stage('build') {
@@ -8,8 +12,9 @@ pipeline {
         }
         stage('package') {
             steps {
-                // sh 'docker ps'
-                app = docker.build("bhubr/hellonode")
+              script {
+                dockerImage = docker.build imagename
+              }
             }
         }
     }
