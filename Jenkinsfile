@@ -1,14 +1,15 @@
 pipeline {
-    agent { docker { image 'python:3.10.1-alpine' } }
+    agent { docker { image 'node:16.13.1-alpine' } }
     stages {
         stage('build') {
             steps {
-                sh 'python --version'
+                sh 'node --version'
             }
         }
         stage('package') {
             steps {
-                sh 'docker ps'
+                // sh 'docker ps'
+                app = docker.build("bhubr/hellonode")
             }
         }
     }
